@@ -3,6 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { Injectable } from "@nestjs/common";
 import { isNil } from "lodash";
 import { RedisOptions } from "ioredis";
+import { join } from "path";
 @Injectable()
 export class AppConfigService {
   constructor(private configService: ConfigService) {
@@ -15,7 +16,8 @@ export class AppConfigService {
       username: this.get("db.username"),
       password: this.get("db.password"),
       database: this.get("db.database"),
-      entities: [__dirname, "../../modules/**/*.dto.ts"],
+      entities: [join(__dirname, "..", "..", "modules", "**", "*.entity{.ts,.js}")],
+      logging: true,
       synchronize: true
     };
   }

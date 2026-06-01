@@ -11,6 +11,7 @@ import { LoggerModule } from "./common/logger/logger.module";
 import { LoggingInterceptor } from "./common/interceptors/loging.interceptor";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { RedisModule } from "./common/redis/redis.module";
+import { AutoModule } from "./modules/auto/auto.module";
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { RedisModule } from "./common/redis/redis.module";
     RedisModule,
     UserModule,
     DepartmentModule,
-    UploadModule
+    UploadModule,
+    AutoModule
   ],
   providers: [
     {
