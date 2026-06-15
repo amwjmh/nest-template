@@ -11,3 +11,8 @@ redis:
   password: root
   db: 0
   keyPrefix: "nest:"
+strategy:
+  github:
+    clientID: Iv23lieiXSTBVrHUxr0y
+    clientSecret: b897c5a821aabc9216f528f8a873ee96ac158d80
+    callbackURL: http://localhost:3000/api/auth/callback

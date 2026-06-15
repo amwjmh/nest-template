@@ -6,7 +6,7 @@ export class RegisterDto {
   @ApiProperty({ description: "用户名" })
   @IsNotEmpty()
   @IsString()
-  username: string;
+  userName: string;
 
   @ApiProperty({ description: "邮箱" })
   @IsNotEmpty()

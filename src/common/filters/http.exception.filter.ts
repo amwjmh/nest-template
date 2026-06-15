@@ -3,18 +3,22 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  Inject
 } from "@nestjs/common";
 import { Response } from "express";
 import { ApiResponse } from "../api-response";
+import { WinstonLogger } from "../logger/logger.service";
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+  @Inject(WinstonLogger)
+
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
+    console.log(exception);
     let message = "Internal server error";
     if (exception instanceof HttpException) {
       status = exception.getStatus();

@@ -9,9 +9,13 @@ import { DepartmentModule } from "./modules/department/department.module";
 import { UploadModule } from "./modules/upload/upload.module";
 import { LoggerModule } from "./common/logger/logger.module";
 import { LoggingInterceptor } from "./common/interceptors/loging.interceptor";
-import { APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_INTERCEPTOR, APP_GUARD } from "@nestjs/core";
 import { RedisModule } from "./common/redis/redis.module";
-import { AutoModule } from "./modules/auto/auto.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { RoleModule } from "./modules/role/role.module";
+import { PermissionModule } from "./modules/permission/permission.module";
+import { LoginGuard } from "./guard/login.guard";
+import { JwtModule } from "@nestjs/jwt";
 
 @Module({
   imports: [
@@ -27,18 +31,28 @@ import { AutoModule } from "./modules/auto/auto.module";
       },
       inject: [AppConfigService]
     }),
+    JwtModule.register({
+      global: true,
+      secret: "guang", signOptions: { expiresIn: "1d" }
+    }),
     LoggerModule,
     RedisModule,
     UserModule,
     DepartmentModule,
     UploadModule,
-    AutoModule
+    AuthModule,
+    RoleModule,
+    PermissionModule
   ],
   providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor
     }
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: LoginGuard
+    // }
   ]
 })
 export class AppModule {}
