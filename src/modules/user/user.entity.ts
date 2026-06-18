@@ -21,12 +21,16 @@ export class UserEntity extends BaseEntity {
   gender: number;
 
   @Column({ type: "varchar", nullable: true })
+  @ApiPropertyOptional({ description: "手机号", type: String })
+  phone?: string;
+
+  @Column({ type: "varchar", nullable: true })
   @ApiPropertyOptional({ description: "邮箱", type: String })
   email?: string;
 
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn({ type: "datetime" })
   @ApiPropertyOptional({ description: "创建时间", type: Date })
-  creatTime?: Date;
+  createTime?: Date;
 
   @ManyToMany(() => RoleEntity)
   @JoinTable({ name: "user_role_relation" })

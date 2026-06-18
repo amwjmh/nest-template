@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class ApiResponse<T = any> {
-  constructor(code = 200, message?: string, data?: T, total?: number) {
+  constructor(code = 200, message?: string, data?: T) {
     this.code = code;
     this.message = message || "成功";
     this.data = data || null;
@@ -18,12 +18,13 @@ export class ApiResponse<T = any> {
   @ApiPropertyOptional({ type: "number", default: 0 })
   total?: number;
 
-  static ok<T = any>(data?: T, message?: string) {
-    return new ApiResponse(200, message || "成功", data);
-  }
-
-  static paginated<T = any>(data: T[], total: number, message?: string) {
-    return new ApiResponse(200, message || "成功", data, total);
+  static ok<T = any>(data?: T, message?: string, total?: number) {
+    if (total) {
+      const list = new PageResult<T>(data, total);
+      return new ApiResponse(200, message || "成功", list);
+    } else {
+      return new ApiResponse(200, message || "成功", data);
+    }
   }
 
   static fail<T = any>(message?: string, code = 500, data?: T) {
@@ -31,8 +32,13 @@ export class ApiResponse<T = any> {
   }
 }
 export class PageResult<T> {
-  constructor(
-    public readonly list: T[],
-    public readonly total: number,
-  ) {}
+  constructor(list: T, total: number) {
+    this.list = list;
+    this.total = total || 0;
+  }
+
+  list?: T;
+
+  @ApiPropertyOptional({ type: "number", default: 0 })
+  total?: number;
 }

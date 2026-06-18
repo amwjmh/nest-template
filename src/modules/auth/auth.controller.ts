@@ -31,7 +31,7 @@
       const refresh_token = await this.jwtService.signAsync({
           userId: user.id,
           userName: user.userName
-      }, { expiresIn: "1d" });
+      }, { expiresIn: "30s" });
       return { token, refresh_token };
     }
 
@@ -91,7 +91,7 @@
         const refresh_token = await this.jwtService.signAsync({
             userId: payload.userId,
             userName: payload.userName
-        }, { expiresIn: "1d" });
+        }, { expiresIn: "30s" });
         return { token, refresh_token };
       } catch (error) {
         return ApiResponse.fail(error.message);
