@@ -12,7 +12,7 @@ import { OpenaiController } from "./openai.controller";
       useFactory: () => {
         return new ChatOpenAI({
           modelName: "deepseek-v4-pro",
-          apiKey: "sk-2f43dd613ccb4d3aa60cfbcf97902036",
+          apiKey: "sk-a9026b46f774406aacbcb68f6edaa74f",
           configuration: {
             baseURL: "https://api.deepseek.com"
           }
